@@ -1,4 +1,6 @@
 require "yaml"
+require "rubygems"
+require "mq"
 
 module Warren
 end

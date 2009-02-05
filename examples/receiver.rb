@@ -1,6 +1,5 @@
 require "rubygems"
-require "mq"
-require "warren/warren"
+require "../warren"
 
 Signal.trap("INT") { AMQP.stop { EM.stop } }
 Signal.trap("TERM") { AMQP.stop { EM.stop } }
