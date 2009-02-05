@@ -31,9 +31,11 @@ class Warren::Queue
   #   Warren::Queue.subscribe("example") {|msg| puts msg }
   def self.subscribe queue_name, &block
     # todo: check if its a valid queue?
-    do_connect do
+    do_connect(false) do
       queue = MQ.queue queue_name
-      queue.subscribe block
+      queue.subscribe do |msg|
+        block.call(msg)
+      end
     end
   end
 
@@ -41,10 +43,10 @@ class Warren::Queue
   private
   
   # Connects and does the stuff its told to!
-  def self.do_connect &block
+  def self.do_connect should_stop=true, &block
     AMQP.start(@@connection.options) do 
       block.call
-      AMQP.stop { EM.stop }
+      AMQP.stop { EM.stop } if should_stop
     end
   end
 
