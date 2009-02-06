@@ -3,7 +3,7 @@ class Warren::Queue
   
   # Sets the connection details
   def self.set_connection params
-    @@connection = Warren::Connection.new(params)
+    @@connection = params.is_a?(Warren::Connection) ? params : Warren::Connection.new(params)
   end
   
   # Sends a payload to a queue
