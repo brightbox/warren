@@ -6,11 +6,17 @@ class Warren::Message
   
   # Return itself as text for publication
   def to_s
-    @payload.to_yaml
+    Warren::Message.pack @payload
   end
   
-  def self.rubify msg
-    YAML.load( msg )
+  # Packs the message up for sending
+  def self.pack msg
+    YAML.dump msg
+  end
+  
+  # Unpacks the message
+  def self.unpack msg
+    YAML.load msg
   end
   
 end

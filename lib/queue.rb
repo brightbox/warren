@@ -22,7 +22,7 @@ class Warren::Queue
     
     do_connect do
       queue = MQ.queue queue_name
-      queue.publish msg
+      queue.publish msg.to_s
     end
 
   end
@@ -37,6 +37,7 @@ class Warren::Queue
     do_connect(false) do
       queue = MQ.queue queue_name
       queue.subscribe do |msg|
+        msg = Warren::Message.unpack(msg)
         block.call(msg)
       end
     end
