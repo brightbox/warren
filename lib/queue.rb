@@ -13,6 +13,9 @@ class Warren::Queue
   #   Warren::Queue.publish(:queue_name, #<Warren::Message>)
   #
   def self.publish queue_name, payload
+    if queue_name == :default
+      queue_name = @@connection.queue_name
+    end
     # Create a message object if it isn't one already
     msg = Warren::Message.new(payload) unless payload.is_a? Warren::Message
     msg ||= payload

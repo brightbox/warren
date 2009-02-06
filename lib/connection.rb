@@ -10,6 +10,11 @@ class Warren::Connection
     @opts = opts
   end
   
+  def queue_name
+    raise InvalidConnectionDetails, "Missing a default queue name." unless @opts.has_key?(:default_queue)
+    @opts[:default_queue]
+  end
+  
   def options
     {
       :user  => @opts[:user],
