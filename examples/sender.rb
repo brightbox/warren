@@ -27,4 +27,4 @@ data = {
   ]
 }
 # And then push a message onto the queue
-Warren::Queue.publish("main", data)
+puts Warren::Queue.publish("main", data) { puts "foo"; true }
