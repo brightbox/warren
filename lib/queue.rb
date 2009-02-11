@@ -12,7 +12,7 @@ class Warren::Queue
   #   Warren::Queue.publish(:queue_name, {:foo => "name"})
   #   Warren::Queue.publish(:queue_name, #<Warren::Message>)
   #
-  def self.publish queue_name, payload
+  def self.publish queue_name, payload, &blk
     if queue_name == :default
       queue_name = @@connection.queue_name
     end
@@ -20,7 +20,7 @@ class Warren::Queue
     msg = Warren::Message.new(payload) unless payload.is_a? Warren::Message
     msg ||= payload
     
-    do_connect do
+    do_connect(true, blk) do
       queue = MQ.queue queue_name
       queue.publish msg.to_s
     end
@@ -47,11 +47,12 @@ class Warren::Queue
   private
   
   # Connects and does the stuff its told to!
-  def self.do_connect should_stop=true, &block
+  def self.do_connect should_stop = true, callback = nil, &block
     AMQP.start(@@connection.options) do 
       block.call
       AMQP.stop { EM.stop } if should_stop
     end
+    callback.call unless callback.nil?
   end
 
 end
