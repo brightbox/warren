@@ -1,8 +1,8 @@
 require "rubygems"
 require File.expand_path(File.dirname(__FILE__) + "/../warren")
 
-Signal.trap("INT") { AMQP.stop { EM.stop } }
-Signal.trap("TERM") { AMQP.stop { EM.stop } }
+Signal.trap("INT") { exit! }
+Signal.trap("TERM") { exit! }
 
 # Setup our own connection before generating the queue object
 conn = Warren::Connection.new(
@@ -26,5 +26,8 @@ data = {
     }
   ]
 }
-# And then push a message onto the queue
-puts Warren::Queue.publish("main", data) { puts "foo"; true }
+# Push a message onto the queue
+p Warren::Queue.publish(:default, data )
+
+# And then push a message onto the queue, returning "foo"
+p Warren::Queue.publish(:default, data) { "foo" }
