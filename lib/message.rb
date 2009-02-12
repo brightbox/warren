@@ -5,18 +5,26 @@ class Warren::Message
   end
   
   # Return itself as text for publication
-  def to_s
+  def payload
     Warren::Message.pack @payload
   end
-  
-  # Packs the message up for sending
+  alias_method :to_s, :payload
+    
+  # Returns a packed payload
   def self.pack msg
-    YAML.dump msg
+    packed?(msg) ? msg : YAML.dump(msg)
   end
   
-  # Unpacks the message
+  # Unpacks the payload
   def self.unpack msg
     YAML.load msg
+  end
+  
+  private
+  
+  # Checks if the msg is already a YAML string
+  def self.packed? msg
+    msg[/^--- /] && msg[/\n$/]
   end
   
 end
