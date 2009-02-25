@@ -1,5 +1,5 @@
 require "rubygems"
-require File.expand_path(File.dirname(__FILE__) + "/../warren")
+require File.expand_path(File.dirname(__FILE__) + "/../lib/warren")
 
 Signal.trap("INT") { exit! }
 Signal.trap("TERM") { exit! }

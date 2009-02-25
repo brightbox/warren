@@ -1,5 +1,5 @@
 require "rubygems"
-require File.expand_path(File.dirname(__FILE__) + "/../warren")
+require File.expand_path(File.dirname(__FILE__) + "/../lib/warren")
 
 Signal.trap("INT") { AMQP.stop { EM.stop } }
 Signal.trap("TERM") { AMQP.stop { EM.stop } }
