@@ -1,9 +1,27 @@
 class Warren::Queue
   @@connection = nil
   
+  class NoConnectionDetails < Exception
+  end
+  
+  class NoBlockGiven < Exception
+  end
+  
   # Sets the connection details
   def self.set_connection params
+    puts "Deprecated: Warren::Queue.set_connection - Use Warren::Queue#connection= instead."
+    self.connection = params
+  end
+  
+  def self.connection= params
     @@connection = params.is_a?(Warren::Connection) ? params : Warren::Connection.new(params)
+  end
+  
+  def self.connection
+    if @@connection.nil?
+      raise NoConnectionDetails, "You need to set the connection details."
+    end
+    @@connection
   end
   
   #
@@ -21,9 +39,7 @@ class Warren::Queue
   #   Warren::Queue.publish(:queue_name, #<Warren::Message>) { puts "bar" }
   # 
   def self.publish queue_name, payload, &blk
-    if queue_name == :default
-      queue_name = @@connection.queue_name
-    end
+    queue_name = self.connection.queue_name if queue_name == :default
     # Create a message object if it isn't one already
     msg = Warren::Message.new(payload) unless payload.is_a? Warren::Message
     msg ||= payload
@@ -42,6 +58,8 @@ class Warren::Queue
   #   Warren::Queue.subscribe("example") {|msg| puts msg }
   # 
   def self.subscribe queue_name, &block
+    raise NoBlockGiven unless block_given?
+    queue_name = self.connection.queue_name if queue_name == :default
     # todo: check if its a valid queue?
     do_connect(false) do
       queue = MQ::Queue.new(MQ.new, queue_name)
@@ -57,7 +75,7 @@ class Warren::Queue
   
   # Connects and does the stuff its told to!
   def self.do_connect should_stop = true, callback = nil, &block
-    AMQP.start(@@connection.options) do
+    AMQP.start(self.connection.options) do
       block.call
       AMQP.stop { EM.stop_event_loop } if should_stop
     end
