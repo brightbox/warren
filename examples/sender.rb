@@ -12,7 +12,7 @@ conn = Warren::Connection.new(
   :default_queue => "main"
 )
 # Set the connection for the queue
-Warren::Queue.set_connection(conn)
+Warren::Queue.connection = conn
 # Generate some data to send
 data = {
   :people => [
