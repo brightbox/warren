@@ -24,7 +24,7 @@ describe Warren::Message do
   end
   
   it "shouldn't re-pack payload if already packed" do
-    yml = YAML.dump("payload")
+    yml = YAML.dump({:foo => "bar"})
     msg = Warren::Message.new(yml)
     
     msg.payload.should == yml
