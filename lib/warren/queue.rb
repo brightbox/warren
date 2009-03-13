@@ -31,18 +31,16 @@ class Warren::Queue
   end
   
   #
-  # Sends a payload to a queue. If successfully sent it returns
+  # Sends a message to a queue. If successfully sent it returns
   # true, unless callback block is passed (see below)
   # 
   #   Warren::Queue.publish(:queue_name, {:foo => "name"})
-  #   Warren::Queue.publish(:queue_name, #<Warren::Message>)
   # 
   # Can also pass a block which is fired after the message
   # is sent. If a block is passed, then the return value of the block
   # is returned from this method.
   # 
-  #   Warren::Queue.publish(:queue_name, {:foo => "name"}  ) { puts "foo" }
-  #   Warren::Queue.publish(:queue_name, #<Warren::Message>) { puts "bar" }
+  #   Warren::Queue.publish(:queue_name, {:foo => "name"}) { puts "foo" }
   # 
   def self.publish queue_name, payload, &blk
     queue_name = self.connection.queue_name if queue_name == :default
