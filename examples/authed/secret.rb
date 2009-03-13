@@ -1,0 +1,1 @@
+SUPER_SECRET_KEY = "This is my super secret string"

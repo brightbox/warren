@@ -14,7 +14,7 @@ conn = Warren::Connection.new({
 # Set the connection for the queue
 Warren::Queue.connection = conn
 
-100.times do | i |
+1000.times do | i |
   puts i
   sleep 0.1
   Warren::Queue.publish(:default, "Message no #{i}") { puts "sent ##{i}" }
