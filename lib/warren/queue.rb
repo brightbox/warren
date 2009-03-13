@@ -8,13 +8,7 @@ class Warren::Queue
   # Raised if a block is expected by the method but none is given.
   class NoBlockGiven < Exception
   end
-  
-  # Sets the connection details
-  def self.set_connection params
-    puts "Deprecated: Warren::Queue.set_connection - Use Warren::Queue#connection= instead."
-    self.connection = params
-  end
-  
+    
   # Sets the connection details
   def self.connection= params
     @@connection = params.is_a?(Warren::Connection) ? params : Warren::Connection.new(params)
