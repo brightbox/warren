@@ -41,9 +41,8 @@ class Warren::Queue
   def self.publish queue_name, payload, &blk
     queue_name = self.connection.queue_name if queue_name == :default
     # Create a message object if it isn't one already
-    msg = Warren::Message.new(payload) unless payload.is_a? Warren::Message
-    msg ||= payload
-    
+    msg = Warren::MessageFilter.pack(payload)
+        
     do_connect(true, blk) do
       queue = MQ::Queue.new(MQ.new, queue_name)
       queue.publish msg.to_s
@@ -64,7 +63,7 @@ class Warren::Queue
     do_connect(false) do
       queue = MQ::Queue.new(MQ.new, queue_name)
       queue.subscribe do |msg|
-        msg = Warren::Message.unpack(msg)
+        msg = Warren::MessageFilter.unpack(msg)
         block.call(msg)
       end
     end
