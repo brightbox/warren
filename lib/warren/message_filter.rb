@@ -16,6 +16,16 @@ module Warren
       end
       alias :add_filter :<<
     end
+    
+    # Returns current array of filters
+    def self.filters
+      @@filters
+    end
+    
+    # Resets the filters to nowt
+    def self.reset_filters
+      @@filters = [Warren::MessageFilter::Yaml]
+    end
 
     # Returns a packed message
     def self.pack msg
