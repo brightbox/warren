@@ -1,9 +1,11 @@
 class Warren::Queue
   @@connection = nil
   
+  # Raised if no connection has been defined yet.
   class NoConnectionDetails < Exception
   end
   
+  # Raised if a block is expected by the method but none is given.
   class NoBlockGiven < Exception
   end
   
@@ -13,10 +15,14 @@ class Warren::Queue
     self.connection = params
   end
   
+  # Sets the connection details
   def self.connection= params
     @@connection = params.is_a?(Warren::Connection) ? params : Warren::Connection.new(params)
   end
   
+  # Returns the current connection details
+  # Raises NoConnectionDetails if no connection details have been
+  # assigned yet.
   def self.connection
     if @@connection.nil?
       raise NoConnectionDetails, "You need to set the connection details."
@@ -55,6 +61,8 @@ class Warren::Queue
   # for each message received
   # 
   #   Warren::Queue.subscribe("example") {|msg| puts msg }
+  # 
+  # Expects a block and raises NoBlockGiven if no block is given.
   # 
   def self.subscribe queue_name, &block
     raise NoBlockGiven unless block_given?

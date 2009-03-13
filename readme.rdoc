@@ -1,5 +1,11 @@
 = Warren
 
+Library for pushing messages onto RabbitMQ queues, and receiving them at the other end.
+
+It handles authentication + filtering messages with custom classes if needed.
+
+Start with Warren::Queue for details and see also examples/
+
 == Released under the MIT Licence
 
 Copyright (c) 2008 Brightbox Systems Ltd 

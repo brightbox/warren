@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + "/message_filters/yaml")
 
 module Warren
+  # Handles filtering messages going onto/coming off the queue
   class MessageFilter
     # Array of filters to be run on the message before its
     # pushed to rabbit.
@@ -9,8 +10,26 @@ module Warren
     # the last filter to be added gets called first.
     @@filters = [Warren::MessageFilter::Yaml]
 
-    # Adds a filter to the list
     class << self
+      # Adds a filter to the list
+      # 
+      # A valid filter is just a class that defines
+      # <tt>self.pack</tt> and <tt>self.unpack</tt> 
+      # methods, which both accept a single argument,
+      # act upon it, and return the output.
+      # 
+      # Example filter class (See also message_filters/*.rb)
+      # 
+      #     class Foo
+      #       def self.pack msg
+      #         msg.reverse # Assumes msg responds to reverse
+      #       end
+      # 
+      #       def self.unpack msg
+      #         msg.reverse # Does the opposite of Foo#pack
+      #       end
+      #     end
+      # 
       def << filter
         @@filters << filter
       end
@@ -22,12 +41,13 @@ module Warren
       @@filters
     end
     
-    # Resets the filters to nowt
+    # Resets the filters to default
     def self.reset_filters
       @@filters = [Warren::MessageFilter::Yaml]
     end
 
-    # Returns a packed message
+    # Runs the raw message through all the filters
+    # and returns the filtered version
     def self.pack msg
       @@filters.reverse.each do |f|
         # puts "Packing with #{f}"
@@ -36,7 +56,8 @@ module Warren
       msg
     end
 
-    # Unpacks the message
+    # Runs the filtered message through all the
+    # filters and returns the raw version
     def self.unpack msg
       @@filters.each do |f|
         # puts "Unpacking with #{f}"
