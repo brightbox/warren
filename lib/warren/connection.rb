@@ -1,5 +1,5 @@
 class Warren::Connection
-  
+
   # Creates a new connection with the options passed in.
   # Requires at least a :user, :pass and :vhost else will raise
   # InvalidConnectionDetails.
@@ -10,14 +10,14 @@ class Warren::Connection
     end
     @opts = opts
   end
-  
+
   # Returns the default queue name or returns InvalidConnectionDetails
   # if no default queue is defined
   def queue_name
     raise InvalidConnectionDetails, "Missing a default queue name." unless @opts.has_key?(:default_queue)
     @opts[:default_queue]
   end
-  
+
   # Returns a hash of the connection options
   def options
     {
@@ -29,7 +29,7 @@ class Warren::Connection
       :logging => (@opts[:logging] || false)
     }
   end
-  
+
   # Raised if connection details are missing or invalid
   # Check the error message for more details
   class InvalidConnectionDetails < Exception

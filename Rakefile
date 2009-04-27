@@ -2,13 +2,13 @@ require 'rubygems'
 require 'rake'
 
 # Load in external rakefiles
-Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each do | rake_file | 
+Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each do | rake_file |
   load rake_file
 end
 
 # Gem stuff
 require 'echoe'
-Echoe.new('warren') do | gem | 
+Echoe.new('warren') do | gem |
   gem.author = ["Caius Durling", "David Smalley"]
   gem.email = 'support@brightbox.co.uk'
   gem.summary = 'Library for pushing messages onto and off RabbitMQ queues'
