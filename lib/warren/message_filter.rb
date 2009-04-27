@@ -1,5 +1,3 @@
-require File.expand_path(File.dirname(__FILE__) + "/message_filters/yaml")
-
 module Warren
   # Handles filtering messages going onto/coming off the queue
   class MessageFilter
@@ -8,7 +6,7 @@ module Warren
     #
     # NB: These get called in reverse order from the array -
     # the last filter to be added gets called first.
-    @@filters = [Warren::MessageFilter::Yaml]
+    @@filters = []
 
     class << self
       # Adds a filter to the list
@@ -34,6 +32,11 @@ module Warren
         @@filters << filter
       end
       alias :add_filter :<<
+    end
+
+    # Called when a subclass is created, adds the subclass to the queue
+    def self.inherited klass
+      add_filter klass
     end
 
     # Returns current array of filters
@@ -68,3 +71,6 @@ module Warren
 
   end
 end
+
+# Make sure the YAML filter is added first
+require File.expand_path(File.dirname(__FILE__) + "/message_filters/yaml")
