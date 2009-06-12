@@ -1,19 +1,26 @@
 = Warren
 
-Library for pushing messages onto RabbitMQ queues, and receiving them at the other end.
+Library for sending and receiving messages, complete with en/decrypting messages on either side of the transport. 
 
-It handles authentication + filtering messages with custom classes if needed.
+It was written to handle sending messages between two nodes using RabbitMQ, which is why the two default adapters are for synchronous and asynchronous rabbitmq client libraries. You can delegate the sending & receiving to any custom class you want, simply by subclassing Warren::Queue. (Isn't ruby magic marvelous!)
 
-Start with Warren::Queue for details and see also examples/
+The filtering works in much the same way as the adapter class. There is a default YAML filter that is always called last before sending the message and first when receiving the message, simply to make sure the message is a string when sent + received. You can then add custom classes onto the stack in any order you want, simply by subclassing Warren::MessageFilter. Add them in the same order on the receiving side and warren takes care of calling them in reverse order.
 
-== Released under the MIT Licence
+Start by looking at examples/ to see how to use it, and then lib/warren/adapters/ to see how to implement your own adapter class and lib/warren/filters to see how to implement your own filters.
 
-Copyright (c) 2008 Brightbox Systems Ltd
+== Installation
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    gem install brightbox-warren
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+== Usage
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    require "rubygems"
+    require "warren"
+    # Pull in the bunny adapter
+    require "warren/adapters/bunny_adapter"
+    
+    # See examples/ for more
 
-See http://www.brightbox.co.uk/ for contact details.
+== License
+
+Licensed under the MIT license. See LICENSE for more details.
