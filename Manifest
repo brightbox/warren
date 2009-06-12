@@ -17,10 +17,6 @@ lib/warren/queue.rb
 lib/warren.rb
 LICENSE
 Manifest
-rails/spec/spec.opts
-rails/spec/spec_helper.rb
-rails/spec/warren/connection_spec.rb
-rails/spec/warren/warren_spec.rb
 Rakefile
 readme.rdoc
 spec/spec.opts
