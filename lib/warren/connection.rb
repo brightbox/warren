@@ -17,9 +17,9 @@ module Warren
     #
     def initialize params = nil
       if params.nil? || !params.is_a?(Hash)
-        file ||= WARREN_ROOT << "/config" << "/warren.yml"
+        file ||= "#{WARREN_ROOT}/config/warren.yml"
         raise InvalidConnectionDetails, "Config file not found: #{file}" unless File.exists?(file)
-        opts = YAML.load(file)
+        opts = YAML.load_file(file)
       end
       opts ||= params
       
