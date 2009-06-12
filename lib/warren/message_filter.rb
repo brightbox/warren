@@ -73,4 +73,4 @@ module Warren
 end
 
 # Make sure the YAML filter is added first
-require File.expand_path(File.dirname(__FILE__) + "/message_filters/yaml")
+require File.expand_path(File.dirname(__FILE__) + "/filters/yaml")

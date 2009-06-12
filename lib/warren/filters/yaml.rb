@@ -4,7 +4,7 @@ module Warren
   class MessageFilter
     # Packs the message into a YAML string
     # for transferring safely across the wire
-    class Yaml
+    class Yaml < MessageFilter
 
       # Returns a YAML string
       def self.pack msg
