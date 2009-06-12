@@ -1,93 +1,73 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Warren::Queue do
-
-  it "should require raise exception with no connection details" do
-    lambda {
-      Warren::Queue.connection
-    }.should raise_error(Warren::Queue::NoConnectionDetails)
+  
+  describe "connection" do
+    
+    before(:all) do
+      @conn = stub 'connection'
+    end
+    
+    it "should create a new Warren::Connection if one doesn't exist" do
+      Warren::Connection.should_receive(:new).and_return(@conn)
+      
+      Warren::Queue.connection.should == @conn
+    end
+    
+    it "should only create a connection once" do
+      # Already created the connection object in the first it
+      Warren::Connection.should_not_receive(:new)
+      
+      Warren::Queue.connection.should == @conn
+      Warren::Queue.connection.should == @conn
+    end
   end
 
-  it "should require connection details to publish" do
-    lambda {
-      Warren::Queue.publish("", "")
-    }.should raise_error(Warren::Queue::NoConnectionDetails)
-  end
+  describe "adapter" do
 
-  it "should require connection details to subscribe" do
-    lambda {
-      Warren::Queue.subscribe("") { true }
-    }.should raise_error(Warren::Queue::NoConnectionDetails)
-  end
-
-  it "should set connection details" do
-    conn = new_connection
-
-    Warren::Queue.connection = conn
-    Warren::Queue.connection.should == conn
-  end
-
-  it "should publish to a queue" do
-    Warren::Queue.connection = new_connection
-
-    Warren::Queue.should_receive(:do_connect).with(true, nil).and_return(true)
-    Warren::Queue.publish("queue", "payload")
-  end
-
-  it "should publish to a default queue" do
-    Warren::Queue.connection = new_connection(:default_queue => "queue")
-
-    Warren::Queue.should_receive(:do_connect).with(true, nil).and_return(true)
-    Warren::Queue.publish(:default, "payload")
-  end
-
-  it "should publish to a queue with a block" do
-    Warren::Queue.connection = new_connection
-
-    blk = Proc.new { true }
-
-    Warren::Queue.should_receive(:do_connect).with(true, blk).and_return(true)
-    Warren::Queue.publish("queue", "payload", &blk)
-  end
-
-  describe "subscribing" do
-
-    it "should require a block to be passed" do
-      Warren::Queue.connection = new_connection
-
-      lambda {
-        Warren::Queue.subscribe("queue")
-      }.should raise_error(Warren::Queue::NoBlockGiven)
+    before(:each) do
+      @adapter = mock 'adapter', :publish => "publish", :subscribe => "subscribe"
+      Warren::Queue.adapter = @adapter
     end
 
-    it "should subscribe to a queue" do
-      Warren::Queue.connection = new_connection
-
-      Warren::Queue.should_receive(:do_connect).with(false).and_return(true)
-      Warren::Queue.subscribe("queue") { true }
+    it "should have an adapter set" do
+      Warren::Queue.adapter.should == @adapter
     end
 
-    it "should subscribe to the default queue" do
-      Warren::Queue.connection = new_connection(:default_queue => "queue")
-
-      Warren::Queue.should_receive(:do_connect).with(false).and_return(true)
-      Warren::Queue.subscribe(:default) { true }
+    it "should pass publish through to the adapter" do
+      @adapter.should_receive(:publish)
+      Warren::Queue.publish.should == "publish"
     end
 
+    it "should pass arguments through to adapter#publish" do
+      @adapter.should_receive(:publish).with("foo", "bar")
+
+      Warren::Queue.publish("foo", "bar").should == "publish"
+    end
+
+    it "should pass a block through to adapter#publish" do
+      block = lambda { true }
+      @adapter.should_receive(:publish).with("foo", "bar", block)
+
+      Warren::Queue.publish("foo", "bar", block).should == "publish"
+    end
+
+    it "should pass subscribe through to the adapter" do
+      @adapter.should_receive(:subscribe)
+      Warren::Queue.subscribe.should == "subscribe"
+    end
+
+    it "should pass arguments through to adapter#subscribe" do
+      @adapter.should_receive(:subscribe).with("foo", "bar")
+
+      Warren::Queue.subscribe("foo", "bar").should == "subscribe"
+    end
+
+    it "should pass a block through to adapter#subscribe" do
+      block = lambda { true }
+      @adapter.should_receive(:subscribe).with("foo", "bar", block)
+
+      Warren::Queue.subscribe("foo", "bar", block).should == "subscribe"
+    end
   end
-
-  private
-
-  def new_connection opts = {}
-    Warren::Connection.new(details.merge(opts))
-  end
-
-  def details
-    {
-      :user  => "user",
-      :pass  => "pass",
-      :vhost => "main",
-    }
-  end
-
 end
