@@ -21,6 +21,16 @@ Start by looking at examples/ to see how to use it, and then lib/warren/adapters
     
     # See examples/ for more
 
+== Rails
+
+Add this to your environment.rb
+
+    config.gem "brightbox-warren", :lib => "warren", :version => ">= 0.8"
+
+And then in an initializer file (or bottom of environment.rb) require the adapter you want to use (for rabbitmq I suggest bunny - amqp uses eventmachine and was giving me issues under passenger.) And then any filters you want to use.
+
+    require "warren/adapters/bunny_adapter"
+
 == License
 
 Licensed under the MIT license. See LICENSE for more details.
