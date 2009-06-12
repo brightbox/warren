@@ -1,7 +1,7 @@
 require "rubygems"
 require File.expand_path(File.dirname(__FILE__) + "/../../lib/warren")
+# Next line is the only one you need to change to use a different adapter
 require File.expand_path(File.dirname(__FILE__) + "/../../lib/warren/adapters/amqp_adapter")
-require File.expand_path(File.dirname(__FILE__) + "/../../lib/warren/filters/shared_secret")
 
 Signal.trap("INT") { exit! }
 Signal.trap("TERM") { exit! }
@@ -29,12 +29,8 @@ data = {
   ]
 }
 
-# Set the secret key
-require File.expand_path(File.dirname(__FILE__) + "/secret")
-Warren::MessageFilter::SharedSecret.key = SUPER_SECRET_KEY
-
-# And add the filter
-Warren::MessageFilter << Warren::MessageFilter::SharedSecret
-
 # Push a message onto the queue
 p Warren::Queue.publish(:default, data )
+
+# And then push a message onto the queue, returning "foo"
+# p Warren::Queue.publish(:default, data) { "foo" }
