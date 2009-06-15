@@ -76,7 +76,7 @@ module Warren
       #
       def self.do_connect queue_name, callback = nil, &block
         # Open a connection
-        b = Bunny.new(connection_details)
+        b = Bunny.new(self.connection.options)
         b.start
         # Create the queue
         q = b.queue(queue_name)
@@ -86,14 +86,6 @@ module Warren
         b.stop
         # Returns the block return value or true
         callback.nil? ? true : callback.call
-      end
-
-      def self.connection_details
-        {
-          :user  => self.connection.options[:user],
-          :pass  => self.connection.options[:pass],
-          :vhost => self.connection.options[:vhost]
-        }
       end
 
     end
