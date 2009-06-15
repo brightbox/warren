@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{warren}
-  s.version = "0.8"
+  s.version = "0.8.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Caius Durling, David Smalley"]
-  s.date = %q{2009-06-12}
+  s.date = %q{2009-06-15}
   s.description = %q{Library for pushing messages onto and off RabbitMQ queues}
   s.email = %q{support@brightbox.co.uk}
   s.extra_rdoc_files = ["CHANGELOG", "lib/warren/adapters/amqp_adapter.rb", "lib/warren/adapters/bunny_adapter.rb", "lib/warren/connection.rb", "lib/warren/filters/shared_secret.rb", "lib/warren/filters/yaml.rb", "lib/warren/message_filter.rb", "lib/warren/queue.rb", "lib/warren.rb", "LICENSE", "tasks/rdoc.rake", "tasks/rspec.rake"]

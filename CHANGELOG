@@ -1,3 +1,5 @@
+v0.8.2. Added nice error message when no details for current env
+v0.8.1. Fixed bug in passing params in
 v0.8. Gem works with rails
 v0.7. Added adapters
 v0.6. Added config file

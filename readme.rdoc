@@ -27,6 +27,14 @@ Add this to your environment.rb
 
     config.gem "brightbox-warren", :lib => "warren", :version => ">= 0.8"
 
+Add the config into config/warren.yml with the details for each environment. Works just the same as database.yml:
+
+    development:
+        user: rabbit
+        pass: carrots53
+        host: rabbit.warren
+        logging: false
+
 And then in an initializer file (or bottom of environment.rb) require the adapter you want to use (for rabbitmq I suggest bunny - amqp uses eventmachine and was giving me issues under passenger.) And then any filters you want to use.
 
     require "warren/adapters/bunny_adapter"
