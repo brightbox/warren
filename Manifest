@@ -26,3 +26,4 @@ spec/warren/queue_spec.rb
 spec/warren/warren_spec.rb
 tasks/rdoc.rake
 tasks/rspec.rake
+warren.gemspec
