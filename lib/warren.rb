@@ -13,7 +13,7 @@ require "yaml"
 module Warren
 end
 
-WARREN_ENV = (defined?(RAILS_ENV) ? RAILS_ENV : "development") unless defined?(WARREN_ENV)
+WARREN_ENV = ENV['WARREN_ENV'] || ((defined?(RAILS_ENV) ? RAILS_ENV : "development")) unless defined?(WARREN_ENV)
 WARREN_ROOT = (defined?(RAILS_ROOT) ? RAILS_ROOT : File.dirname($0)) unless defined?(WARREN_ROOT)
 WARREN_LIB_ROOT = File.expand_path(File.dirname(__FILE__))
 
