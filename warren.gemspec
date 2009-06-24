@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{warren}
-  s.version = "0.8.5"
+  s.version = "0.8.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Caius Durling, David Smalley"]
@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = %q{Library for pushing messages onto and off RabbitMQ queues}
   s.email = %q{support@brightbox.co.uk}
   s.extra_rdoc_files = ["CHANGELOG", "lib/warren/adapters/amqp_adapter.rb", "lib/warren/adapters/bunny_adapter.rb", "lib/warren/connection.rb", "lib/warren/filters/shared_secret.rb", "lib/warren/filters/yaml.rb", "lib/warren/message_filter.rb", "lib/warren/queue.rb", "lib/warren.rb", "LICENSE", "tasks/rdoc.rake", "tasks/rspec.rake"]
-  s.files = ["CHANGELOG", "examples/authed/receiver.rb", "examples/authed/secret.rb", "examples/authed/sender.rb", "examples/simple/amqp_mass_sender.rb", "examples/simple/amqp_receiver.rb", "examples/simple/amqp_sender.rb", "examples/simple/bunny_receiver.rb", "examples/simple/bunny_sender.rb", "lib/warren/adapters/amqp_adapter.rb", "lib/warren/adapters/bunny_adapter.rb", "lib/warren/connection.rb", "lib/warren/filters/shared_secret.rb", "lib/warren/filters/yaml.rb", "lib/warren/message_filter.rb", "lib/warren/queue.rb", "lib/warren.rb", "LICENSE", "Manifest", "Rakefile", "readme.rdoc", "spec/spec.opts", "spec/spec_helper.rb", "spec/warren/connection_spec.rb", "spec/warren/queue_spec.rb", "spec/warren/warren_spec.rb", "tasks/rdoc.rake", "tasks/rspec.rake", "warren.gemspec"]
+  s.files = ["CHANGELOG", "examples/authed/receiver.rb", "examples/authed/secret.rb", "examples/authed/sender.rb", "examples/simple/amqp_mass_sender.rb", "examples/simple/amqp_receiver.rb", "examples/simple/amqp_sender.rb", "examples/simple/bunny_receiver.rb", "examples/simple/bunny_sender.rb", "lib/warren/adapters/amqp_adapter.rb", "lib/warren/adapters/bunny_adapter.rb", "lib/warren/adapters/dummy_adapter.rb", "lib/warren/connection.rb", "lib/warren/filters/shared_secret.rb", "lib/warren/filters/yaml.rb", "lib/warren/message_filter.rb", "lib/warren/queue.rb", "lib/warren.rb", "LICENSE", "Manifest", "Rakefile", "readme.rdoc", "spec/spec.opts", "spec/spec_helper.rb", "spec/warren/connection_spec.rb", "spec/warren/queue_spec.rb", "spec/warren/warren_spec.rb", "tasks/rdoc.rake", "tasks/rspec.rake", "warren.gemspec"]
   s.homepage = %q{http://github.com/brightbox/warren}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Warren", "--main", "readme.rdoc"]
   s.require_paths = ["lib"]
