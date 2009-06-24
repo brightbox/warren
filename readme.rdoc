@@ -16,8 +16,10 @@ Start by looking at examples/ to see how to use it, and then lib/warren/adapters
 
     require "rubygems"
     require "warren"
-    # Pull in the bunny adapter
+    # Use the bunny adapter to connect to RabbitMQ (Bunny is an AMQP client that works with Rails/Passenger apps)
     require "warren/adapters/bunny_adapter"
+    # If you're running in development and don't want to actually push messages onto the queue then instead of loading the bunny adapter use the dummy adapter
+    require "warren/adapters/dummy_adapter" 
     
     # See examples/ for more
 

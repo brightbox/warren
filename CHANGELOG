@@ -1,3 +1,4 @@
+v0.8.5. Added dummy adapter for testing purposes
 v0.8.4. Fix typo in 0.8.3
 v0.8.3. Can now override WARREN_ENV from the command line.
 v0.8.2. Added nice error message when no details for current env
