@@ -1,3 +1,4 @@
+v0.8.7. Added a TestAdapter
 v0.8.6. Also added dummy adapter to gemspec
 v0.8.5. Added dummy adapter for testing purposes
 v0.8.4. Fix typo in 0.8.3
