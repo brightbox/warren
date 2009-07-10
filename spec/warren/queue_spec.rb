@@ -34,6 +34,24 @@ describe Warren::Queue do
       Warren::Queue.adapter.should == @adapter
     end
 
+    it "should have a publish method" do
+      my_adapter = mock 'adapter'
+      Warren::Queue.adapter = my_adapter
+
+      lambda { Warren::Queue.publish }.should \
+      raise_error(Warren::Queue::InvalidAdapter, "publish method missing")
+    end
+
+    it "should have a subscribe method" do
+      my_adapter = mock 'adapter'
+      Warren::Queue.adapter = my_adapter
+      
+      Warren::Queue.adapter.should == my_adapter
+
+      lambda { Warren::Queue.subscribe}.should \
+      raise_error(Warren::Queue::InvalidAdapter, "subscribe method missing")
+    end
+
     it "should pass publish through to the adapter" do
       @adapter.should_receive(:publish)
       Warren::Queue.publish.should == "publish"

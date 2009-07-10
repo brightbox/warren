@@ -19,6 +19,12 @@ module Warren
     NoAdapterSet = Class.new(Exception)
 
     # 
+    # Raised if the adapter is missing a method
+    # Check the message for details of the missing method.
+    # 
+    InvalidAdapter = Class.new(Exception)
+
+    # 
     # Sets the current connection
     # 
     def self.connection= conn
@@ -57,6 +63,7 @@ module Warren
     # Publishes the message to the queue
     # 
     def self.publish *args, &blk
+      raise(InvalidAdapter, "publish method missing") unless @@adapter.respond_to?(:publish)
       self.adapter.publish(*args, &blk)
     end
 
@@ -64,6 +71,7 @@ module Warren
     # Sends the subscribe message to the adapter class
     # 
     def self.subscribe *args, &blk
+      raise(InvalidAdapter.new("subscribe method missing")) unless @@adapter.respond_to?(:subscribe)
       self.adapter.subscribe(*args, &blk)
     end
 
