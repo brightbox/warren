@@ -1,5 +1,5 @@
 require "yaml"
-
+require "logger"
 #
 # Library for pushing messages onto RabbitMQ queues,
 # and receiving them at the other end.
@@ -15,7 +15,7 @@ end
 
 WARREN_ENV = ENV['WARREN_ENV'] || ((defined?(RAILS_ENV) ? RAILS_ENV : "development")) unless defined?(WARREN_ENV)
 WARREN_ROOT = (defined?(RAILS_ROOT) ? RAILS_ROOT : File.dirname($0)) unless defined?(WARREN_ROOT)
-WARREN_LIB_ROOT = File.expand_path(File.dirname(__FILE__))
+WARREN_LIB_ROOT = File.expand_path(File.dirname(__FILE__)) unless defined? WARREN_LIB_ROOT
 
 # Require everything in the lib folder
 Dir["#{WARREN_LIB_ROOT}/warren/*.rb"].each do |file|

@@ -75,5 +75,15 @@ module Warren
       self.adapter.subscribe(*args, &blk)
     end
 
+		def self.logger
+			unless @@logger
+				@@logger = Logger.new(nil)
+			end
+			@@logger
+		end
+
+		def self.logger=(l)
+			@@logger = l
+		end
   end
 end
