@@ -2,6 +2,7 @@ module Warren
   class Queue
     @@connection = nil
     @@adapter    = nil
+    @@logger     = nil
 
     #
     # Raised if no connection has been defined yet.

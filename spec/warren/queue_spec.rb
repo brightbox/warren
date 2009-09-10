@@ -88,4 +88,26 @@ describe Warren::Queue do
       Warren::Queue.subscribe("foo", "bar", block).should == "subscribe"
     end
   end
+  
+  describe "logger" do
+    
+    before(:each) do
+      Warren::Queue.logger = nil
+    end
+    
+    it "should have a default logger" do
+      Warren::Queue.logger.should_not be_nil
+      Warren::Queue.logger.should be_a_kind_of(Logger)
+    end
+    
+    it "should allow you to set a custom logger" do
+      log = mock(Logger)
+
+      Warren::Queue.logger = log
+      
+      Warren::Queue.logger.should_not be_nil
+      Warren::Queue.logger.should == log
+    end
+    
+  end
 end
