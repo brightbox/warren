@@ -1,4 +1,7 @@
 CHANGELOG
+LICENSE
+Manifest
+Rakefile
 examples/authed/receiver.rb
 examples/authed/secret.rb
 examples/authed/sender.rb
@@ -7,6 +10,7 @@ examples/simple/amqp_receiver.rb
 examples/simple/amqp_sender.rb
 examples/simple/bunny_receiver.rb
 examples/simple/bunny_sender.rb
+lib/warren.rb
 lib/warren/adapters/amqp_adapter.rb
 lib/warren/adapters/bunny_adapter.rb
 lib/warren/adapters/dummy_adapter.rb
@@ -16,10 +20,6 @@ lib/warren/filters/shared_secret.rb
 lib/warren/filters/yaml.rb
 lib/warren/message_filter.rb
 lib/warren/queue.rb
-lib/warren.rb
-LICENSE
-Manifest
-Rakefile
 readme.rdoc
 spec/spec.opts
 spec/spec_helper.rb
@@ -29,4 +29,3 @@ spec/warren/queue_spec.rb
 spec/warren/warren_spec.rb
 tasks/rdoc.rake
 tasks/rspec.rake
-warren.gemspec

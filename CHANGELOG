@@ -1,3 +1,4 @@
+v0.9.1. Instated the dependency upon bunny
 v0.9.0. Adding a logger
 v0.8.9. Fixing a StackTooDeep bug.
 v0.8.8. Bumping for github
