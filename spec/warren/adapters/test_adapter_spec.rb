@@ -3,6 +3,11 @@ require "#{File.dirname(__FILE__)}/../../../lib/warren/adapters/test_adapter.rb"
 
 describe TestAdapter do
 
+  before do
+    # play nicely with other adapters loaded
+    Warren::Queue.adapter = TestAdapter
+  end
+
   before(:all) do
     @file_name = "#{WARREN_ROOT}/tmp/warren.txt"
   end
