@@ -11,8 +11,10 @@ module Warren
       # 
       def self.check_connection_details opts
         # Check they've passed in the stuff without a default on it
-        unless opts.has_key?(:user) && opts.has_key?(:pass) && opts.has_key?(:vhost)
-          raise Warren::Connection::InvalidConnectionDetails, "Missing a username, password or vhost."
+        [:user, :pass, :vhost].each do | required_arg |
+          unless opts.has_key?(required_arg)
+            raise Warren::Connection::InvalidConnectionDetails, "#{required_arg.to_s.capitalize} not specified"
+          end
         end
         true
       end
