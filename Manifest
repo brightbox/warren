@@ -23,6 +23,7 @@ lib/warren/queue.rb
 readme.rdoc
 spec/spec.opts
 spec/spec_helper.rb
+spec/warren/adapters/bunny_adapter_spec.rb
 spec/warren/adapters/test_adapter_spec.rb
 spec/warren/connection_spec.rb
 spec/warren/queue_spec.rb
