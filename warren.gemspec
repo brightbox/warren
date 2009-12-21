@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Caius Durling, David Smalley"]
-  s.date = %q{2009-11-09}
+  s.date = %q{2009-12-21}
   s.description = %q{Library for pushing messages onto and off RabbitMQ queues}
   s.email = %q{support@brightbox.co.uk}
   s.extra_rdoc_files = ["CHANGELOG", "LICENSE", "lib/warren.rb", "lib/warren/adapters/amqp_adapter.rb", "lib/warren/adapters/bunny_adapter.rb", "lib/warren/adapters/dummy_adapter.rb", "lib/warren/adapters/test_adapter.rb", "lib/warren/connection.rb", "lib/warren/filters/shared_secret.rb", "lib/warren/filters/yaml.rb", "lib/warren/message_filter.rb", "lib/warren/queue.rb", "tasks/rdoc.rake", "tasks/rspec.rake"]
@@ -24,13 +24,13 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<amqp>, [">= 0.6.0"])
-      s.add_runtime_dependency(%q<bunny>, [">= 0.4.3"])
+      s.add_runtime_dependency(%q<bunny>, [">= 0.6.0"])
     else
       s.add_dependency(%q<amqp>, [">= 0.6.0"])
-      s.add_dependency(%q<bunny>, [">= 0.4.3"])
+      s.add_dependency(%q<bunny>, [">= 0.6.0"])
     end
   else
     s.add_dependency(%q<amqp>, [">= 0.6.0"])
-    s.add_dependency(%q<bunny>, [">= 0.4.3"])
+    s.add_dependency(%q<bunny>, [">= 0.6.0"])
   end
 end

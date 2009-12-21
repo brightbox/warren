@@ -1,4 +1,5 @@
 require "rubygems"
+gem "bunny", ">= 0.6.0"
 require "bunny"
 
 module Warren

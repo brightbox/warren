@@ -13,7 +13,7 @@ Echoe.new('warren') do | gem |
   gem.email = 'support@brightbox.co.uk'
   gem.summary = 'Library for pushing messages onto and off RabbitMQ queues'
   gem.url = 'http://github.com/brightbox/warren'
-  gem.dependencies = [["amqp", '>= 0.6.0'], ["bunny", ">= 0.4.3"]]
+  gem.dependencies = [["amqp", '>= 0.6.0'], ["bunny", ">= 0.6.0"]]
 end
 
 desc "Generates the manifest and the gemspec"
