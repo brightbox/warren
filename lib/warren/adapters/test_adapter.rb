@@ -4,7 +4,7 @@ class TestAdapter < Warren::Queue
   ConnectionFailed = Class.new(Exception)
   # 
   def self.publish queue_name, payload, &blk
-    raise TestAdapter::ConnectionFailed if fail?
+    raise self::ConnectionFailed if fail?
     true
   end
 
