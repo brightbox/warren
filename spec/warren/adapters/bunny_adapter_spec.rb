@@ -40,6 +40,43 @@ describe Warren::Queue::BunnyAdapter do
     end
   end
 
+  describe "subscribe" do
+    it "should override subscribe" do
+      Warren::Queue::BunnyAdapter.methods(false).should include("subscribe")
+    end
+
+    it "should accept a subscribe block with one argument" do
+      blk = lambda do |one|
+        one.should == "my message"
+      end
+
+      send_headers_to_bunny_with &blk
+    end
+
+    it "should accept a subscribe block with two arguments" do
+      blk = lambda do | message, headers |
+        message.should == "my message"
+        headers.should == {:some => :header}
+      end
+
+      headers = {
+        :payload => "my message",
+        :some => :header
+      }
+      Warren::Queue::BunnyAdapter.__send__(:handle_bunny_message, headers, &blk)
+    end
+
+    def send_headers_to_bunny_with &blk
+      headers = {
+        :payload => "my message",
+        :some => :header
+      }
+      Warren::Queue::BunnyAdapter.__send__(:handle_bunny_message, headers, &blk)
+    end
+  end
+
+  protected
+
   def setup_config_object
     @options = {
       :host => "localhost",

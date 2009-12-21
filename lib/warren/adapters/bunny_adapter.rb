@@ -61,18 +61,35 @@ module Warren
       #
       # Expects a block and raises NoBlockGiven if no block is given.
       #
+      # The block is passed up to two arguments, depending on how many
+      # you ask for. The first one is always required, which is the message
+      # passed over the queue (after being unpacked by filters.)
+      # The (optional) second argument is a hash of headers bunny gives us
+      # containing extra data about the message.
+      # 
+      #   Warren::Queue.subscribe(:default) {|msg, payload| puts msg, payload }
+      # 
       def self.subscribe queue_name, &block
         raise NoBlockGiven unless block_given?
         queue_name = self.queue_name if queue_name == :default
         # todo: check if its a valid queue?
         do_connect(queue_name) do |queue|
-          msg = queue.pop
-          return if msg == :queue_empty
-          block.call(Warren::MessageFilter.unpack(msg))
+          handle_bunny_message(queue.pop, &block)
         end
       end
 
       private
+
+      # Called when a message is pulled off the queue by bunny.
+      #
+      def self.handle_bunny_message headers, &block
+        payload = headers.delete(:payload)
+        return if payload == :queue_empty
+        # unpack it
+        payload = Warren::MessageFilter.unpack(payload)
+        # Call our block with as many args as we need to
+        block.arity == 1 ? block.call(payload) : block.call(payload, headers)
+      end
 
       #
       # Connects and does the stuff its told to!
