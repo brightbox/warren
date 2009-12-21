@@ -18,7 +18,7 @@ module Warren
     # Make sure both the publisher and subscriber use the same
     # key else you'll get KeyValidationError error raised.
     #
-    class SharedSecret
+    class SharedSecret < MessageFilter
       # Raised when no key (salt) is provided
       class NoKeyError < Exception; end
       # Raised when there is a key mismatch error
