@@ -7,23 +7,23 @@ module Warren
     #
     # Raised if no connection has been defined yet.
     #
-    NoConnectionDetails = Class.new(Exception)
+    NoConnectionDetails = Class.new(StandardError)
 
     #
     # Raised if a block is expected by the method but none is given.
     #
-    NoBlockGiven = Class.new(Exception)
+    NoBlockGiven = Class.new(StandardError)
 
     # 
     # Raised if an adapter isn't set
     # 
-    NoAdapterSet = Class.new(Exception)
+    NoAdapterSet = Class.new(StandardError)
 
     # 
     # Raised if the adapter is missing a method
     # Check the message for details of the missing method.
     # 
-    InvalidAdapter = Class.new(Exception)
+    InvalidAdapter = Class.new(StandardError)
 
     # 
     # Sets the current connection

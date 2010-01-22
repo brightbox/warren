@@ -1,7 +1,7 @@
 require "rubygems"
 
 class TestAdapter < Warren::Queue
-  ConnectionFailed = Class.new(Exception)
+  ConnectionFailed = Class.new(StandardError)
   # 
   def self.publish queue_name, payload, &blk
     raise self::ConnectionFailed if fail?

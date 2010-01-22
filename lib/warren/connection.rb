@@ -31,7 +31,7 @@ module Warren
     # Raised if connection details are missing or invalid
     # Check the error message for more details
     #
-    InvalidConnectionDetails = Class.new(Exception)
+    InvalidConnectionDetails = Class.new(StandardError)
 
     private
 
