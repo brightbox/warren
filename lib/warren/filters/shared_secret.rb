@@ -20,9 +20,9 @@ module Warren
     #
     class SharedSecret < MessageFilter
       # Raised when no key (salt) is provided
-      class NoKeyError < Exception; end
+      class NoKeyError < StandardError; end
       # Raised when there is a key mismatch error
-      class KeyValidationError < Exception; end
+      class KeyValidationError < StandardError; end
 
       # Sets the key to use
       def self.key= key
